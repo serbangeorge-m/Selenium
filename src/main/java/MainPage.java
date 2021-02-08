@@ -9,7 +9,8 @@ public class MainPage {
     By userNumber = By.id("userNumber");
     By submitButton = By.id("submit");
     By selectGender = By.className("custom-control-label");
-    By registrationFeedback = By.id("example-modal-sizes-title-lg");
+
+
 
     public MainPage(WebDriver driver){
         this.driver = driver;
@@ -31,15 +32,9 @@ public class MainPage {
         driver.findElement(userNumber).sendKeys(phoneNumber);
     }
 
-    public void clickSubmit(){
-        driver.findElement(submitButton).click();
-    }
+    public void submitForm(){ driver.findElement(submitButton).click(); }
 
-    public void setSelectGender(){
-        driver.findElement(selectGender).click();
-    }
+    public void setSelectGender(){ driver.findElement(selectGender).click();}
 
-    public void confirmRegistration(){
-        driver.findElement(registrationFeedback);
-    }
+
 }
