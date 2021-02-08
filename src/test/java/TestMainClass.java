@@ -49,7 +49,7 @@ public class TestMainClass {
         mainPage.setFirstName(firstName);
         mainPage.setLastName(lastName);
         mainPage.setUserEmail(person.getEmail());
-        mainPage.setSelectGender();
+        mainPage.selectGender();
         mainPage.setUserNumber(person.getMobileNumber());
         mainPage.submitForm();
 
