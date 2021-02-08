@@ -9,6 +9,7 @@ public class MainPage {
     By userNumber = By.id("userNumber");
     By submitButton = By.id("submit");
     By selectGender = By.className("custom-control-label");
+    By getFeedback = By.id("example-modal-sizes-title-lg");
 
 
 
@@ -36,5 +37,8 @@ public class MainPage {
 
     public void selectGender(){ driver.findElement(selectGender).click();}
 
+    public boolean registrationFeedback(){
+        return driver.findElement(getFeedback).isDisplayed();
+    }
 
 }

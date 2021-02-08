@@ -26,10 +26,10 @@ public class TestMainClass {
 
     @Test
     public void GoToPageAndValidateUrl(){
-        driver.get(baseUrl);
-
         String currentUrl = driver.getCurrentUrl();
         String currentTitle = driver.getTitle();
+
+        driver.get(baseUrl);
 
         assertEquals(currentUrl,baseUrl);
         assertEquals(currentTitle,pageTitle);
@@ -37,15 +37,15 @@ public class TestMainClass {
 
     @RepeatedTest(5)
     public void registerUser() throws InterruptedException {
-        driver.get(baseUrl);
-
-        mainPage = new MainPage(driver);
         person = new Person();
-
         String firstName = person.getFirstName();
         String lastName = person.getLastName(firstName);
         String fullName =firstName + " " + lastName;
+        System.out.println(fullName);
 
+
+        driver.get(baseUrl);
+        mainPage = new MainPage(driver);
         mainPage.setFirstName(firstName);
         mainPage.setLastName(lastName);
         mainPage.setUserEmail(person.getEmail());
@@ -53,13 +53,7 @@ public class TestMainClass {
         mainPage.setUserNumber(person.getMobileNumber());
         mainPage.submitForm();
 
-        boolean registrationFeedback = driver.findElement(By.id("example-modal-sizes-title-lg")).isDisplayed();
-
-        assertEquals(registrationFeedback, true);
-
-        System.out.println(fullName);
-
-        Thread.sleep(5000);
+        assertEquals(mainPage.registrationFeedback(), true);
     }
 
     @AfterAll
