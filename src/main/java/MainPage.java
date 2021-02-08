@@ -34,7 +34,7 @@ public class MainPage {
 
     public void submitForm(){ driver.findElement(submitButton).click(); }
 
-    public void setSelectGender(){ driver.findElement(selectGender).click();}
+    public void selectGender(){ driver.findElement(selectGender).click();}
 
 
 }
