@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestMainClass {
     WebDriver driver;
     MainPage mainPage;
-    Person person;
+    User user = new User();
 
     String baseUrl = "https://demoqa.com/automation-practice-form";
-    String pageTitle = "ToolsQA";
+
+    public static final List<String> users = Collections.unmodifiableList(
+            Arrays.asList("Jan", "Chack", "Klark", "John", "Bat", "Tim", "Dave", "Pay", "Lazy", "Jack"));
 
     @BeforeAll
     public void setup(){
@@ -24,37 +28,28 @@ public class TestMainClass {
         driver.manage().window().maximize();
     }
 
+
     @Test
-    public void GoToPageAndValidateUrl(){
-        String currentUrl = driver.getCurrentUrl();
-        String currentTitle = driver.getTitle();
+    public void registerFiveUniqueUsers(){
 
-        driver.get(baseUrl);
+       var usersToRegister = user.pickRandomName(users,5);
 
-        assertEquals(currentUrl,baseUrl);
-        assertEquals(currentTitle,pageTitle);
+       System.out.println("The following users were registered: \n");
+
+       for (String userToRegister :usersToRegister){
+           driver.get(baseUrl);
+           String currentUrl = driver.getCurrentUrl();
+           assertEquals(currentUrl,baseUrl);
+
+           mainPage = new MainPage(driver);
+           mainPage.registerNewUser(userToRegister, user.setLastName(userToRegister), user.getEmail(), user.getMobileNumber());
+
+           System.out.println(userToRegister + " " + user.setLastName(userToRegister));
+
+           assertEquals(mainPage.registrationFeedback(), true);
+       }
     }
 
-    @RepeatedTest(5)
-    public void registerUser() throws InterruptedException {
-        person = new Person();
-        String firstName = person.getFirstName();
-        String lastName = person.getLastName(firstName);
-        String fullName =firstName + " " + lastName;
-        System.out.println(fullName);
-
-
-        driver.get(baseUrl);
-        mainPage = new MainPage(driver);
-        mainPage.setFirstName(firstName);
-        mainPage.setLastName(lastName);
-        mainPage.setUserEmail(person.getEmail());
-        mainPage.selectGender();
-        mainPage.setUserNumber(person.getMobileNumber());
-        mainPage.submitForm();
-
-        assertEquals(mainPage.registrationFeedback(), true);
-    }
 
     @AfterAll
     public void close(){

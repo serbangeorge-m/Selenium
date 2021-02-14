@@ -41,4 +41,13 @@ public class MainPage {
         return driver.findElement(getFeedback).isDisplayed();
     }
 
+    public void registerNewUser(String firstName, String lastName, String email, String phoneNumber){
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserEmail(email);
+        selectGender();
+        setUserNumber(phoneNumber);
+        submitForm();
+    }
+
 }
